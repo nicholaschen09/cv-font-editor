@@ -57,17 +57,17 @@ class GesturalFontApp {
     }
 
     setupOverlayCanvas() {
-        const video = this.elements.videoElement;
         const overlay = this.elements.overlayCanvas;
+        const workspace = document.querySelector('.ar-workspace');
 
-        // Sync overlay canvas size with video
+        // Sync overlay canvas size with workspace
         const updateOverlaySize = () => {
-            const rect = video.getBoundingClientRect();
+            const rect = workspace.getBoundingClientRect();
             overlay.width = rect.width;
             overlay.height = rect.height;
         };
 
-        video.addEventListener('loadedmetadata', updateOverlaySize);
+        this.elements.videoElement.addEventListener('loadedmetadata', updateOverlaySize);
         window.addEventListener('resize', updateOverlaySize);
 
         // Initial setup

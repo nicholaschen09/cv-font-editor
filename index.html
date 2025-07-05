@@ -49,44 +49,41 @@
             </div>
         </div>
 
-        <div class="workspace">
-            <div class="font-editor-panel">
-                <canvas id="fontCanvas" width="800" height="600"></canvas>
-                <div class="font-info">
-                    <div class="property">
-                        <label>Character: <span id="currentChar">A</span></label>
+        <div class="ar-workspace">
+            <video id="videoElement" autoplay muted></video>
+            <canvas id="fontCanvas" width="800" height="600"></canvas>
+            <canvas id="overlayCanvas"></canvas>
+
+            <div class="font-info">
+                <div class="property">
+                    <label>Character: <span id="currentChar">A</span></label>
+                </div>
+                <div class="property">
+                    <label>Distortion: <span id="distortionValue">0%</span></label>
+                    <div class="progress-bar">
+                        <div id="distortionBar" class="progress-fill"></div>
                     </div>
-                    <div class="property">
-                        <label>Distortion: <span id="distortionValue">0%</span></label>
-                        <div class="progress-bar">
-                            <div id="distortionBar" class="progress-fill"></div>
-                        </div>
-                    </div>
-                    <div class="property">
-                        <label>Smoothness: <span id="smoothnessValue">0.8</span></label>
-                        <div class="progress-bar">
-                            <div id="smoothnessBar" class="progress-fill" style="width: 80%"></div>
-                        </div>
+                </div>
+                <div class="property">
+                    <label>Smoothness: <span id="smoothnessValue">0.8</span></label>
+                    <div class="progress-bar">
+                        <div id="smoothnessBar" class="progress-fill" style="width: 80%"></div>
                     </div>
                 </div>
             </div>
 
-            <div class="camera-panel">
-                <video id="videoElement" autoplay muted></video>
-                <canvas id="overlayCanvas"></canvas>
-                <div class="gesture-status">
-                    <div class="status-item">
-                        <span class="status-label">Adjusting:</span>
-                        <span id="adjustingMode">CHARACTER</span>
-                    </div>
-                    <div class="status-item">
-                        <span class="status-label">Hand Detected:</span>
-                        <span id="handStatus">NO</span>
-                    </div>
-                    <div class="status-item">
-                        <span class="status-label">Gesture:</span>
-                        <span id="gestureType">None</span>
-                    </div>
+            <div class="gesture-status">
+                <div class="status-item">
+                    <span class="status-label">Adjusting:</span>
+                    <span id="adjustingMode">CHARACTER</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Hand Detected:</span>
+                    <span id="handStatus">NO</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Gesture:</span>
+                    <span id="gestureType">None</span>
                 </div>
             </div>
         </div>

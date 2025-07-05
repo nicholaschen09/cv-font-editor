@@ -56,35 +56,56 @@ button:hover {
     color: #000000;
 }
 
-.workspace {
-    display: flex;
-    gap: 30px;
-    height: calc(100vh - 200px);
+.ar-workspace {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 140px);
+    overflow: hidden;
 }
 
-.font-editor-panel {
-    flex: 2;
-    background: #000000;
-    border: 1px solid #333333;
-    padding: 20px;
-    position: relative;
+#videoElement {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: #000;
+    transform: scaleX(-1);
+    z-index: 1;
 }
 
 #fontCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 80%;
-    background: #000000;
-    border: 1px solid #333333;
+    height: 100%;
+    background: transparent;
+    z-index: 2;
+}
+
+#overlayCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transform: scaleX(-1);
+    z-index: 3;
 }
 
 .font-info {
     position: absolute;
-    bottom: 20px;
+    top: 20px;
     right: 20px;
-    width: 200px;
-    background: #000000;
+    width: 250px;
+    background: rgba(0, 0, 0, 0.8);
     padding: 15px;
     border: 1px solid #333333;
+    backdrop-filter: blur(10px);
+    z-index: 4;
 }
 
 .property {
@@ -112,40 +133,15 @@ button:hover {
     transition: width 0.3s ease;
 }
 
-.camera-panel {
-    flex: 1;
-    background: #000000;
-    border: 1px solid #333333;
-    padding: 20px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-}
-
-#videoElement {
-    width: 100%;
-    height: 60%;
-    object-fit: cover;
-    background: #000;
-    border: 1px solid #333333;
-    transform: scaleX(-1);
-}
-
-#overlayCanvas {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    width: calc(100% - 40px);
-    height: 60%;
-    pointer-events: none;
-    transform: scaleX(-1);
-}
-
 .gesture-status {
-    margin-top: 20px;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
     padding: 15px;
-    background: #000000;
+    background: rgba(0, 0, 0, 0.8);
     border: 1px solid #333333;
+    backdrop-filter: blur(10px);
+    z-index: 4;
 }
 
 .status-item {
@@ -205,18 +201,13 @@ button:hover {
 
 /* Responsive design */
 @media (max-width: 1200px) {
-    .workspace {
-        flex-direction: column;
-        height: auto;
+    .font-info {
+        width: 200px;
+        font-size: 0.8rem;
     }
 
-    .camera-panel {
-        height: 400px;
-    }
-
-    #videoElement,
-    #overlayCanvas {
-        height: 250px;
+    .gesture-status {
+        font-size: 0.8rem;
     }
 }
 

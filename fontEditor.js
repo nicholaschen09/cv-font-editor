@@ -29,12 +29,16 @@ class FontEditor {
         // Set up canvas styles
         this.ctx.lineCap = 'round';
         this.ctx.lineJoin = 'round';
+
+        // Enable mouse interaction for transparent canvas
+        this.canvas.style.pointerEvents = 'auto';
     }
 
     generateBasicCharacterPaths() {
         const paths = {};
-        const centerX = 400;
-        const centerY = 300;
+        // Center characters for AR view
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
         const size = 150;
 
         // Define basic character outlines with control points
@@ -216,8 +220,7 @@ class FontEditor {
         // Set up rendering context
         this.ctx.save();
 
-        // Draw grid
-        this.drawGrid();
+        // Skip grid drawing for AR mode
 
         // Draw character outline
         this.drawCharacterOutline();
@@ -225,8 +228,7 @@ class FontEditor {
         // Draw control points
         this.drawControlPoints();
 
-        // Draw character label
-        this.drawCharacterLabel();
+        // Skip character label in AR mode
 
         this.ctx.restore();
     }
@@ -257,12 +259,9 @@ class FontEditor {
     drawCharacterOutline() {
         if (!this.controlPoints.length) return;
 
-        this.ctx.strokeStyle = '#ffffff';
-        this.ctx.lineWidth = 2;
-        this.ctx.beginPath();
-
         // Draw the character using control points
         if (this.controlPoints.length > 0) {
+            this.ctx.beginPath();
             this.ctx.moveTo(this.controlPoints[0].x, this.controlPoints[0].y);
 
             for (let i = 1; i < this.controlPoints.length; i++) {
@@ -275,24 +274,34 @@ class FontEditor {
             }
 
             this.ctx.closePath();
+
+            // Draw black outline first for visibility
+            this.ctx.strokeStyle = '#000000';
+            this.ctx.lineWidth = 6;
+            this.ctx.stroke();
+
+            // Draw white outline on top
+            this.ctx.strokeStyle = '#ffffff';
+            this.ctx.lineWidth = 3;
+            this.ctx.stroke();
+
+            // Fill with semi-transparent color
+            this.ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+            this.ctx.fill();
         }
-
-        this.ctx.stroke();
-
-        // Fill with semi-transparent color
-        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
-        this.ctx.fill();
     }
 
     drawControlPoints() {
         this.controlPoints.forEach(point => {
-            const size = point.selected ? 8 : 5;
-            // Draw square control points like in the reference image
+            const size = point.selected ? 10 : 6;
+
+            // Draw black outline for visibility against camera
+            this.ctx.fillStyle = '#000000';
+            this.ctx.fillRect(point.x - size / 2 - 1, point.y - size / 2 - 1, size + 2, size + 2);
+
+            // Draw white square control points
             this.ctx.fillStyle = point.selected ? '#ffffff' : '#ffffff';
             this.ctx.fillRect(point.x - size / 2, point.y - size / 2, size, size);
-            this.ctx.strokeStyle = '#000';
-            this.ctx.lineWidth = 1;
-            this.ctx.strokeRect(point.x - size / 2, point.y - size / 2, size, size);
         });
     }
 
