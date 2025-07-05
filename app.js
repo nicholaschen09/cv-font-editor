@@ -12,7 +12,6 @@ class GesturalFontApp {
             fontCanvas: document.getElementById('fontCanvas'),
             videoElement: document.getElementById('videoElement'),
             overlayCanvas: document.getElementById('overlayCanvas'),
-            resetBtn: document.getElementById('resetBtn'),
             exportBtn: document.getElementById('exportBtn'),
             currentChar: document.getElementById('currentChar'),
             distortionValue: document.getElementById('distortionValue'),
@@ -384,10 +383,6 @@ class GesturalFontApp {
     setupUIEventListeners() {
 
         // Reset button
-        this.elements.resetBtn.addEventListener('click', () => {
-            this.fontEditor.reset();
-            this.updateUI();
-        });
 
         // Export button
         this.elements.exportBtn.addEventListener('click', () => {
