@@ -128,6 +128,7 @@ button:hover {
     object-fit: cover;
     background: #000;
     border: 1px solid #333333;
+    transform: scaleX(-1);
 }
 
 #overlayCanvas {
@@ -137,6 +138,7 @@ button:hover {
     width: calc(100% - 40px);
     height: 60%;
     pointer-events: none;
+    transform: scaleX(-1);
 }
 
 .gesture-status {
