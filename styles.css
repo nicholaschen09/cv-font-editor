@@ -65,13 +65,13 @@ button:hover {
 
 #videoElement {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: -15%;
+    left: -15%;
+    width: 130%;
+    height: 130%;
     object-fit: cover;
     background: #000;
-    transform: scaleX(-1);
+    transform: scaleX(-1) scale(0.65);
     z-index: 1;
 }
 
