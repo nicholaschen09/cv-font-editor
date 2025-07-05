@@ -395,6 +395,7 @@ class GestureRecognition {
         switch (this.currentGesture) {
             case 'pinch':
                 data.pinchDistance = this.calculatePinchDistance();
+                data.thumbIndexRotation = this.calculateThumbIndexRotation();
                 break;
             case 'two_fingers':
                 data.fingerSpread = this.calculateFingerSpread();
@@ -465,6 +466,23 @@ class GestureRecognition {
         const middleTip = this.handLandmarks[12];
 
         return Math.atan2(middleTip.y - indexTip.y, middleTip.x - indexTip.x);
+    }
+
+    calculateThumbIndexRotation() {
+        if (!this.handLandmarks) return 0;
+
+        const thumbTip = this.handLandmarks[4];
+        const indexTip = this.handLandmarks[8];
+
+        // Calculate angle between thumb and index finger
+        const deltaX = indexTip.x - thumbTip.x;
+        const deltaY = indexTip.y - thumbTip.y;
+        let angle = Math.atan2(deltaY, deltaX);
+
+        // Normalize angle to 0-2π range
+        if (angle < 0) angle += 2 * Math.PI;
+
+        return angle;
     }
 
     // Convert normalized coordinates to canvas coordinates

@@ -12,7 +12,6 @@ class GesturalFontApp {
             fontCanvas: document.getElementById('fontCanvas'),
             videoElement: document.getElementById('videoElement'),
             overlayCanvas: document.getElementById('overlayCanvas'),
-            characterSelect: document.getElementById('characterSelect'),
             resetBtn: document.getElementById('resetBtn'),
             exportBtn: document.getElementById('exportBtn'),
             currentChar: document.getElementById('currentChar'),
@@ -22,8 +21,16 @@ class GesturalFontApp {
             smoothnessBar: document.getElementById('smoothnessBar'),
             adjustingMode: document.getElementById('adjustingMode'),
             handStatus: document.getElementById('handStatus'),
-            gestureType: document.getElementById('gestureType')
+            gestureType: document.getElementById('gestureType'),
+            letterWheel: document.querySelector('.letter-wheel'),
+            selectedLetter: document.getElementById('selectedLetter'),
+            wheelLetters: document.querySelector('.wheel-letters')
         };
+
+        // Letter wheel properties
+        this.letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+        this.currentLetterIndex = 0;
+        this.lastRotation = 0;
 
         this.initialize();
     }
@@ -47,6 +54,9 @@ class GesturalFontApp {
 
             // Setup UI event listeners
             this.setupUIEventListeners();
+
+            // Create letter wheel
+            this.createLetterWheel();
 
             this.isInitialized = true;
             console.log('Gestural Font App initialized successfully');
@@ -106,7 +116,13 @@ class GesturalFontApp {
                 this.handlePointGesture(data, canvasRect);
                 break;
             case 'pinch':
-                this.handlePinchGesture(data);
+                // Check if we're doing letter selection or scaling
+                const pinchDistance = data.pinchDistance || 0.05;
+                if (pinchDistance < 0.04) {
+                    this.handleLetterSelection(data);
+                } else {
+                    this.handlePinchGesture(data);
+                }
                 break;
             case 'fist':
                 this.handleFistGesture(data);
@@ -123,6 +139,9 @@ class GesturalFontApp {
     }
 
     handlePointGesture(data, canvasRect) {
+        // Remove letter wheel active state
+        this.elements.letterWheel.classList.remove('active');
+
         // Map normalized finger position to canvas coordinates
         const fingerPos = this.gestureRecognition.normalizedToCanvas(
             data.indexTip,
@@ -146,6 +165,7 @@ class GesturalFontApp {
 
     handlePinchGesture(data) {
         this.elements.adjustingMode.textContent = 'SCALE';
+        this.elements.letterWheel.classList.remove('active');
 
         // Use pinch distance to control scale
         const pinchDistance = data.pinchDistance || 0.05;
@@ -163,6 +183,7 @@ class GesturalFontApp {
 
     handleFistGesture(data) {
         this.elements.adjustingMode.textContent = 'DISTORTION';
+        this.elements.letterWheel.classList.remove('active');
 
         // Use hand movement to control distortion
         const palmCenter = data.palmCenter;
@@ -175,6 +196,7 @@ class GesturalFontApp {
 
     handleOpenHandGesture(data) {
         this.elements.adjustingMode.textContent = 'RESET';
+        this.elements.letterWheel.classList.remove('active');
 
         // Gradually reset transformations
         const currentScale = this.fontEditor.scale;
@@ -195,10 +217,40 @@ class GesturalFontApp {
 
     handleTwoFingerGesture(data) {
         this.elements.adjustingMode.textContent = 'ROTATION';
+        this.elements.letterWheel.classList.remove('active');
 
         // Use finger rotation to control character rotation
         const rotation = data.rotation || 0;
         this.fontEditor.applyTransformation('rotate', rotation);
+    }
+
+    handleLetterSelection(data) {
+        // Use thumb+index rotation for letter selection
+        this.elements.adjustingMode.textContent = 'LETTER SELECT';
+        this.elements.letterWheel.classList.add('active');
+
+        const rotation = data.thumbIndexRotation || 0;
+        this.updateLetterSelection(rotation);
+    }
+
+    updateLetterSelection(rotation) {
+        // Map rotation to letter index (26 letters in circle)
+        const normalizedRotation = rotation / (2 * Math.PI);
+        let newLetterIndex = Math.floor(normalizedRotation * this.letters.length) % this.letters.length;
+
+        // Ensure positive index
+        if (newLetterIndex < 0) newLetterIndex += this.letters.length;
+
+        if (newLetterIndex !== this.currentLetterIndex) {
+            this.currentLetterIndex = newLetterIndex;
+            const selectedLetter = this.letters[this.currentLetterIndex];
+
+            // Update display
+            this.elements.selectedLetter.textContent = selectedLetter;
+            this.fontEditor.setCharacter(selectedLetter);
+            this.updateLetterWheel();
+            this.updateUI();
+        }
     }
 
     updateUI() {
@@ -216,13 +268,45 @@ class GesturalFontApp {
         this.elements.smoothnessBar.style.width = `${smoothness * 100}%`;
     }
 
-    setupUIEventListeners() {
-        // Character selection
-        this.elements.characterSelect.addEventListener('change', (e) => {
-            const selectedChar = e.target.value;
-            this.fontEditor.setCharacter(selectedChar);
-            this.updateUI();
+    createLetterWheel() {
+        const wheelLetters = this.elements.wheelLetters;
+        const radius = 120; // Larger radius for letter positioning
+        const centerX = 150; // Center of the 300px wheel
+        const centerY = 150;
+
+        // Clear existing letters
+        wheelLetters.innerHTML = '';
+
+        this.letters.forEach((letter, index) => {
+            const angle = (index / this.letters.length) * 2 * Math.PI - Math.PI / 2; // Start from top
+            const x = centerX + radius * Math.cos(angle);
+            const y = centerY + radius * Math.sin(angle);
+
+            const letterElement = document.createElement('div');
+            letterElement.className = 'wheel-letter';
+            letterElement.textContent = letter;
+            letterElement.style.left = `${x - 10}px`; // Center the 20px wide element
+            letterElement.style.top = `${y - 10}px`; // Center the 20px tall element
+            letterElement.dataset.index = index;
+
+            wheelLetters.appendChild(letterElement);
         });
+
+        this.updateLetterWheel();
+    }
+
+    updateLetterWheel() {
+        const letters = this.elements.wheelLetters.querySelectorAll('.wheel-letter');
+        letters.forEach((letterEl, index) => {
+            if (index === this.currentLetterIndex) {
+                letterEl.classList.add('selected');
+            } else {
+                letterEl.classList.remove('selected');
+            }
+        });
+    }
+
+    setupUIEventListeners() {
 
         // Reset button
         this.elements.resetBtn.addEventListener('click', () => {
@@ -290,18 +374,21 @@ class GesturalFontApp {
     }
 
     selectPreviousCharacter() {
-        const currentIndex = this.elements.characterSelect.selectedIndex;
-        const newIndex = Math.max(0, currentIndex - 1);
-        this.elements.characterSelect.selectedIndex = newIndex;
-        this.elements.characterSelect.dispatchEvent(new Event('change'));
+        this.currentLetterIndex = (this.currentLetterIndex - 1 + this.letters.length) % this.letters.length;
+        const selectedLetter = this.letters[this.currentLetterIndex];
+        this.elements.selectedLetter.textContent = selectedLetter;
+        this.fontEditor.setCharacter(selectedLetter);
+        this.updateLetterWheel();
+        this.updateUI();
     }
 
     selectNextCharacter() {
-        const currentIndex = this.elements.characterSelect.selectedIndex;
-        const maxIndex = this.elements.characterSelect.options.length - 1;
-        const newIndex = Math.min(maxIndex, currentIndex + 1);
-        this.elements.characterSelect.selectedIndex = newIndex;
-        this.elements.characterSelect.dispatchEvent(new Event('change'));
+        this.currentLetterIndex = (this.currentLetterIndex + 1) % this.letters.length;
+        const selectedLetter = this.letters[this.currentLetterIndex];
+        this.elements.selectedLetter.textContent = selectedLetter;
+        this.fontEditor.setCharacter(selectedLetter);
+        this.updateLetterWheel();
+        this.updateUI();
     }
 
     handleMouseDown(e) {

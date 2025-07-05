@@ -133,6 +133,69 @@ button:hover {
     transition: width 0.3s ease;
 }
 
+.letter-wheel {
+    position: absolute;
+    left: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 300px;
+    height: 300px;
+    z-index: 4;
+    transition: all 0.3s ease;
+}
+
+.letter-wheel.active {
+    transform: translateY(-50%) scale(1.05);
+}
+
+.wheel-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 6;
+}
+
+.wheel-center span {
+    font-size: 36px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.wheel-letters {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.wheel-letter {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+.wheel-letter.selected {
+    color: #ffffff;
+    transform: scale(1.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+}
+
 .gesture-status {
     position: absolute;
     bottom: 20px;
