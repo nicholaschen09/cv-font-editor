@@ -24,13 +24,17 @@ class GesturalFontApp {
             gestureType: document.getElementById('gestureType'),
             letterWheel: document.querySelector('.letter-wheel'),
             selectedLetter: document.getElementById('selectedLetter'),
-            wheelLetters: document.querySelector('.wheel-letters')
+            wheelLetters: document.querySelector('.wheel-letters'),
+            wheelPreviewCanvas: document.getElementById('wheelPreviewCanvas')
         };
 
         // Letter wheel properties
         this.letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
         this.currentLetterIndex = 0;
         this.lastRotation = 0;
+
+        // Preview canvas for wheel center
+        this.previewCtx = null;
 
         this.initialize();
     }
@@ -57,6 +61,9 @@ class GesturalFontApp {
 
             // Create letter wheel
             this.createLetterWheel();
+
+            // Initialize preview canvas
+            this.initializePreviewCanvas();
 
             this.isInitialized = true;
             console.log('Gestural Font App initialized successfully');
@@ -249,6 +256,7 @@ class GesturalFontApp {
             this.elements.selectedLetter.textContent = selectedLetter;
             this.fontEditor.setCharacter(selectedLetter);
             this.updateLetterWheel();
+            this.renderWheelPreview();
             this.updateUI();
         }
     }
@@ -270,9 +278,9 @@ class GesturalFontApp {
 
     createLetterWheel() {
         const wheelLetters = this.elements.wheelLetters;
-        const radius = 120; // Larger radius for letter positioning
-        const centerX = 150; // Center of the 300px wheel
-        const centerY = 150;
+        const radius = 160; // Larger radius for more spacing
+        const centerX = 200; // Center of the 400px wheel
+        const centerY = 200;
 
         // Clear existing letters
         wheelLetters.innerHTML = '';
@@ -293,6 +301,73 @@ class GesturalFontApp {
         });
 
         this.updateLetterWheel();
+    }
+
+    initializePreviewCanvas() {
+        const canvas = this.elements.wheelPreviewCanvas;
+        this.previewCtx = canvas.getContext('2d');
+
+        // Set up canvas for high DPI
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * window.devicePixelRatio;
+        canvas.height = rect.height * window.devicePixelRatio;
+        this.previewCtx.scale(window.devicePixelRatio, window.devicePixelRatio);
+
+        // Initial render
+        this.renderWheelPreview();
+    }
+
+    renderWheelPreview() {
+        if (!this.previewCtx || !this.fontEditor) return;
+
+        const canvas = this.elements.wheelPreviewCanvas;
+        const ctx = this.previewCtx;
+
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Get current character path from fontEditor
+        const char = this.letters[this.currentLetterIndex];
+        const charPath = this.fontEditor.characterPaths[char];
+
+        if (charPath && charPath.outline) {
+            // Scale and center the character for the preview
+            const scale = 0.3; // Much smaller for the wheel center
+            const centerX = 60; // Half of 120px
+            const centerY = 60;
+
+            ctx.save();
+            ctx.translate(centerX, centerY);
+            ctx.scale(scale, scale);
+            ctx.translate(-centerX, -centerY);
+
+            // Draw character outline
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 8; // Thicker for visibility
+            ctx.beginPath();
+
+            charPath.outline.forEach((point, index) => {
+                if (point.type === 'moveTo' || index === 0) {
+                    ctx.moveTo(point.x, point.y);
+                } else if (point.type === 'quadraticCurveTo' && point.cp) {
+                    ctx.quadraticCurveTo(point.cp.x, point.cp.y, point.x, point.y);
+                } else {
+                    ctx.lineTo(point.x, point.y);
+                }
+            });
+
+            // Add black outline for visibility
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 12;
+            ctx.stroke();
+
+            // White outline on top
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 8;
+            ctx.stroke();
+
+            ctx.restore();
+        }
     }
 
     updateLetterWheel() {
@@ -379,6 +454,7 @@ class GesturalFontApp {
         this.elements.selectedLetter.textContent = selectedLetter;
         this.fontEditor.setCharacter(selectedLetter);
         this.updateLetterWheel();
+        this.renderWheelPreview();
         this.updateUI();
     }
 
@@ -388,6 +464,7 @@ class GesturalFontApp {
         this.elements.selectedLetter.textContent = selectedLetter;
         this.fontEditor.setCharacter(selectedLetter);
         this.updateLetterWheel();
+        this.renderWheelPreview();
         this.updateUI();
     }
 

@@ -28,6 +28,7 @@
 
             <div class="letter-wheel">
                 <div class="wheel-center">
+                    <canvas id="wheelPreviewCanvas" width="120" height="120"></canvas>
                     <span id="selectedLetter">A</span>
                 </div>
                 <div class="wheel-letters"></div>
@@ -49,9 +50,6 @@
                         <div id="smoothnessBar" class="progress-fill" style="width: 80%"></div>
                     </div>
                 </div>
-            </div>
-
-            <div class="gesture-status">
                 <div class="status-item">
                     <span class="status-label">Adjusting:</span>
                     <span id="adjustingMode">CHARACTER</span>

@@ -100,31 +100,32 @@ button:hover {
     position: absolute;
     top: 20px;
     right: 20px;
-    width: 250px;
+    width: 220px;
     background: rgba(0, 0, 0, 0.8);
-    padding: 15px;
+    padding: 12px;
     border: 1px solid #333333;
     backdrop-filter: blur(10px);
     z-index: 4;
+    font-size: 0.75rem;
 }
 
 .property {
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
 .property label {
     display: block;
-    font-size: 0.9rem;
-    margin-bottom: 5px;
+    font-size: 0.75rem;
+    margin-bottom: 4px;
     color: #cccccc;
 }
 
 .progress-bar {
     width: 100%;
-    height: 8px;
+    height: 6px;
     background: #333333;
     overflow: hidden;
-    margin-top: 5px;
+    margin-top: 4px;
 }
 
 .progress-fill {
@@ -135,11 +136,11 @@ button:hover {
 
 .letter-wheel {
     position: absolute;
-    left: 60px;
+    left: 40px;
     top: 50%;
     transform: translateY(-50%);
-    width: 300px;
-    height: 300px;
+    width: 400px;
+    height: 400px;
     z-index: 4;
     transition: all 0.3s ease;
 }
@@ -153,8 +154,8 @@ button:hover {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
     background: transparent;
     display: flex;
     align-items: center;
@@ -162,11 +163,14 @@ button:hover {
     z-index: 6;
 }
 
+.wheel-center canvas {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+
 .wheel-center span {
-    font-size: 36px;
-    font-weight: bold;
-    color: #ffffff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    display: none;
 }
 
 .wheel-letters {
@@ -196,22 +200,17 @@ button:hover {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
 }
 
-.gesture-status {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    padding: 15px;
-    background: rgba(0, 0, 0, 0.8);
-    border: 1px solid #333333;
-    backdrop-filter: blur(10px);
-    z-index: 4;
-}
-
 .status-item {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
-    font-size: 0.9rem;
+    margin-bottom: 8px;
+    font-size: 0.7rem;
+    padding-top: 8px;
+    border-top: 1px solid #333333;
+}
+
+.status-item:first-of-type {
+    margin-top: 8px;
 }
 
 .status-label {
@@ -224,7 +223,7 @@ button:hover {
 }
 
 #handStatus {
-    font-size: 1.2rem;
+    font-size: 0.8rem;
     color: #ffffff;
 }
 
@@ -265,12 +264,16 @@ button:hover {
 /* Responsive design */
 @media (max-width: 1200px) {
     .font-info {
-        width: 200px;
-        font-size: 0.8rem;
+        width: 180px;
+        font-size: 0.65rem;
     }
 
-    .gesture-status {
-        font-size: 0.8rem;
+    .property label {
+        font-size: 0.65rem;
+    }
+
+    .status-item {
+        font-size: 0.6rem;
     }
 }
 
