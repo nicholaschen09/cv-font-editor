@@ -1,0 +1,21 @@
+# his
+.DS_Store
+
+# node modules
+node_modules
+
+# build files
+build
+
+# dist files
+dist
+
+# history
+.history
+
+# logs
+logs
+
+# temp
+temp
+

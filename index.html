@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestural Font Editor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Gestural Font Editor ✨</h1>
+            <div class="controls">
+                <select id="characterSelect">
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                    <option value="G">G</option>
+                    <option value="H">H</option>
+                    <option value="I">I</option>
+                    <option value="J">J</option>
+                    <option value="K">K</option>
+                    <option value="L">L</option>
+                    <option value="M">M</option>
+                    <option value="N">N</option>
+                    <option value="O">O</option>
+                    <option value="P">P</option>
+                    <option value="Q">Q</option>
+                    <option value="R">R</option>
+                    <option value="S">S</option>
+                    <option value="T">T</option>
+                    <option value="U">U</option>
+                    <option value="V">V</option>
+                    <option value="W">W</option>
+                    <option value="X">X</option>
+                    <option value="Y">Y</option>
+                    <option value="Z">Z</option>
+                </select>
+                <button id="resetBtn">Reset Character</button>
+                <button id="exportBtn">Export Font</button>
+            </div>
+        </div>
+
+        <div class="workspace">
+            <div class="font-editor-panel">
+                <canvas id="fontCanvas" width="800" height="600"></canvas>
+                <div class="font-info">
+                    <div class="property">
+                        <label>Character: <span id="currentChar">A</span></label>
+                    </div>
+                    <div class="property">
+                        <label>Distortion: <span id="distortionValue">0%</span></label>
+                        <div class="progress-bar">
+                            <div id="distortionBar" class="progress-fill"></div>
+                        </div>
+                    </div>
+                    <div class="property">
+                        <label>Smoothness: <span id="smoothnessValue">0.8</span></label>
+                        <div class="progress-bar">
+                            <div id="smoothnessBar" class="progress-fill" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="camera-panel">
+                <video id="videoElement" autoplay muted></video>
+                <canvas id="overlayCanvas"></canvas>
+                <div class="gesture-status">
+                    <div class="status-item">
+                        <span class="status-label">Adjusting:</span>
+                        <span id="adjustingMode">CHARACTER</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Hand Detected:</span>
+                        <span id="handStatus">❌</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Gesture:</span>
+                        <span id="gestureType">None</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>Gesture Controls:</h3>
+            <ul>
+                <li><strong>Point (Index finger):</strong> Select and move control points</li>
+                <li><strong>Pinch (Thumb + Index):</strong> Scale character</li>
+                <li><strong>Two fingers:</strong> Rotate character</li>
+                <li><strong>Fist:</strong> Apply distortion</li>
+                <li><strong>Open hand:</strong> Reset to neutral</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/opentype.js@1.3.4/dist/opentype.min.js"></script>
+    <script src="fontEditor.js"></script>
+    <script src="gestureRecognition.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
