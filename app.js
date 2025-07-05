@@ -255,7 +255,6 @@ class GesturalFontApp {
             this.elements.selectedLetter.textContent = selectedLetter;
             this.fontEditor.setCharacter(selectedLetter);
             this.updateLetterWheel();
-            this.renderWheelPreview();
             this.updateUI();
         }
     }
@@ -303,17 +302,8 @@ class GesturalFontApp {
     }
 
     initializePreviewCanvas() {
-        const canvas = this.elements.wheelPreviewCanvas;
-        this.previewCtx = canvas.getContext('2d');
-
-        // Set up canvas for high DPI
-        const rect = canvas.getBoundingClientRect();
-        canvas.width = rect.width * window.devicePixelRatio;
-        canvas.height = rect.height * window.devicePixelRatio;
-        this.previewCtx.scale(window.devicePixelRatio, window.devicePixelRatio);
-
-        // Initial render
-        this.renderWheelPreview();
+        // Canvas is now hidden, no initialization needed
+        // The text span displays the selected letter instead
     }
 
     renderWheelPreview() {
@@ -382,8 +372,6 @@ class GesturalFontApp {
 
     setupUIEventListeners() {
 
-        // Reset button
-
         // Export button
         this.elements.exportBtn.addEventListener('click', () => {
             this.fontEditor.exportFont();
@@ -449,7 +437,6 @@ class GesturalFontApp {
         this.elements.selectedLetter.textContent = selectedLetter;
         this.fontEditor.setCharacter(selectedLetter);
         this.updateLetterWheel();
-        this.renderWheelPreview();
         this.updateUI();
     }
 
@@ -459,7 +446,6 @@ class GesturalFontApp {
         this.elements.selectedLetter.textContent = selectedLetter;
         this.fontEditor.setCharacter(selectedLetter);
         this.updateLetterWheel();
-        this.renderWheelPreview();
         this.updateUI();
     }
 
