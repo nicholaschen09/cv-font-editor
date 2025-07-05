@@ -5,8 +5,8 @@
 }
 
 body {
-    font-family: 'Courier New', monospace;
-    background: #0a0a0a;
+    font-family: 'Michroma', monospace;
+    background: #000000;
     color: #ffffff;
     overflow-x: hidden;
 }
@@ -22,9 +22,8 @@ body {
     align-items: center;
     margin-bottom: 30px;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
+    background: #000000;
+    border-bottom: 1px solid #333333;
 }
 
 .header h1 {
@@ -41,11 +40,11 @@ body {
 
 select,
 button {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: #000000;
+    border: 1px solid #ffffff;
     color: white;
     padding: 10px 15px;
-    border-radius: 5px;
+    border-radius: 0;
     font-family: inherit;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -53,8 +52,8 @@ button {
 
 select:hover,
 button:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.4);
+    background: #ffffff;
+    color: #000000;
 }
 
 .workspace {
@@ -65,8 +64,8 @@ button:hover {
 
 .font-editor-panel {
     flex: 2;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
+    background: #000000;
+    border: 1px solid #333333;
     padding: 20px;
     position: relative;
 }
@@ -74,9 +73,8 @@ button:hover {
 #fontCanvas {
     width: 100%;
     height: 80%;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #000000;
+    border: 1px solid #333333;
 }
 
 .font-info {
@@ -84,10 +82,9 @@ button:hover {
     bottom: 20px;
     right: 20px;
     width: 200px;
-    background: rgba(0, 0, 0, 0.7);
+    background: #000000;
     padding: 15px;
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
+    border: 1px solid #333333;
 }
 
 .property {
@@ -104,23 +101,21 @@ button:hover {
 .progress-bar {
     width: 100%;
     height: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
+    background: #333333;
     overflow: hidden;
     margin-top: 5px;
 }
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #00ffff, #ff00ff);
-    border-radius: 4px;
+    background: #ffffff;
     transition: width 0.3s ease;
 }
 
 .camera-panel {
     flex: 1;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
+    background: #000000;
+    border: 1px solid #333333;
     padding: 20px;
     position: relative;
     display: flex;
@@ -130,9 +125,9 @@ button:hover {
 #videoElement {
     width: 100%;
     height: 60%;
-    border-radius: 10px;
     object-fit: cover;
     background: #000;
+    border: 1px solid #333333;
 }
 
 #overlayCanvas {
@@ -141,16 +136,14 @@ button:hover {
     left: 20px;
     width: calc(100% - 40px);
     height: 60%;
-    border-radius: 10px;
     pointer-events: none;
 }
 
 .gesture-status {
     margin-top: 20px;
     padding: 15px;
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
+    background: #000000;
+    border: 1px solid #333333;
 }
 
 .status-item {
@@ -165,30 +158,30 @@ button:hover {
 }
 
 #adjustingMode {
-    color: #00ffff;
+    color: #ffffff;
     font-weight: bold;
 }
 
 #handStatus {
     font-size: 1.2rem;
+    color: #ffffff;
 }
 
 #gestureType {
-    color: #ff00ff;
+    color: #ffffff;
     font-weight: bold;
 }
 
 .instructions {
     margin-top: 30px;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
+    background: #000000;
+    border: 1px solid #333333;
 }
 
 .instructions h3 {
     margin-bottom: 15px;
-    color: #00ffff;
+    color: #ffffff;
 }
 
 .instructions ul {
@@ -199,13 +192,13 @@ button:hover {
 .instructions li {
     margin-bottom: 10px;
     padding: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 5px;
+    background: #000000;
+    border: 1px solid #333333;
     font-size: 0.9rem;
 }
 
 .instructions strong {
-    color: #ff00ff;
+    color: #ffffff;
 }
 
 /* Responsive design */
@@ -248,11 +241,11 @@ button:hover {
 
 @keyframes pulse {
     from {
-        box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
     }
 
     to {
-        box-shadow: 0 0 40px rgba(0, 255, 255, 0.7);
+        box-shadow: 0 0 40px rgba(255, 255, 255, 0.7);
     }
 }
 

@@ -257,7 +257,7 @@ class FontEditor {
     drawCharacterOutline() {
         if (!this.controlPoints.length) return;
 
-        this.ctx.strokeStyle = '#00ffff';
+        this.ctx.strokeStyle = '#ffffff';
         this.ctx.lineWidth = 2;
         this.ctx.beginPath();
 
@@ -280,19 +280,19 @@ class FontEditor {
         this.ctx.stroke();
 
         // Fill with semi-transparent color
-        this.ctx.fillStyle = 'rgba(0, 255, 255, 0.1)';
+        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
         this.ctx.fill();
     }
 
     drawControlPoints() {
         this.controlPoints.forEach(point => {
-            this.ctx.beginPath();
-            this.ctx.arc(point.x, point.y, point.selected ? 8 : 5, 0, Math.PI * 2);
-            this.ctx.fillStyle = point.selected ? '#ff00ff' : '#ffffff';
-            this.ctx.fill();
+            const size = point.selected ? 8 : 5;
+            // Draw square control points like in the reference image
+            this.ctx.fillStyle = point.selected ? '#ffffff' : '#ffffff';
+            this.ctx.fillRect(point.x - size / 2, point.y - size / 2, size, size);
             this.ctx.strokeStyle = '#000';
             this.ctx.lineWidth = 1;
-            this.ctx.stroke();
+            this.ctx.strokeRect(point.x - size / 2, point.y - size / 2, size, size);
         });
     }
 

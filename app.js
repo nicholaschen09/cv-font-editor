@@ -77,12 +77,12 @@ class GesturalFontApp {
     setupGestureCallbacks() {
         // Hand detection callbacks
         this.gestureRecognition.onHandDetected = (landmarks) => {
-            this.elements.handStatus.textContent = '✅';
+            this.elements.handStatus.textContent = 'YES';
             this.elements.videoElement.classList.add('hand-detected');
         };
 
         this.gestureRecognition.onHandLost = () => {
-            this.elements.handStatus.textContent = '❌';
+            this.elements.handStatus.textContent = 'NO';
             this.elements.videoElement.classList.remove('hand-detected');
             this.elements.gestureType.textContent = 'None';
         };

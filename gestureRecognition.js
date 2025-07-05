@@ -102,7 +102,7 @@ class GestureRecognition {
         const height = this.overlayCanvas.height;
 
         // Draw connections
-        this.overlayCtx.strokeStyle = '#00ffff';
+        this.overlayCtx.strokeStyle = '#ffffff';
         this.overlayCtx.lineWidth = 2;
 
         const connections = [
@@ -136,14 +136,8 @@ class GestureRecognition {
             this.overlayCtx.beginPath();
             this.overlayCtx.arc(x, y, 5, 0, Math.PI * 2);
 
-            // Different colors for different finger parts
-            if (index === 4 || index === 8) { // Thumb tip, Index tip
-                this.overlayCtx.fillStyle = '#ff00ff';
-            } else if (index === 0) { // Wrist
-                this.overlayCtx.fillStyle = '#ffff00';
-            } else {
-                this.overlayCtx.fillStyle = '#ffffff';
-            }
+            // All landmarks white
+            this.overlayCtx.fillStyle = '#ffffff';
 
             this.overlayCtx.fill();
             this.overlayCtx.strokeStyle = '#000';
@@ -162,7 +156,7 @@ class GestureRecognition {
         const height = this.overlayCanvas.height;
 
         // Draw gesture name
-        this.overlayCtx.fillStyle = '#ff00ff';
+        this.overlayCtx.fillStyle = '#ffffff';
         this.overlayCtx.font = '20px Arial';
         this.overlayCtx.textAlign = 'center';
         this.overlayCtx.fillText(this.currentGesture.toUpperCase(), width / 2, 30);
@@ -194,7 +188,7 @@ class GestureRecognition {
         // Draw pointing circle
         this.overlayCtx.beginPath();
         this.overlayCtx.arc(indexTip.x * width, indexTip.y * height, 15, 0, Math.PI * 2);
-        this.overlayCtx.strokeStyle = '#ff00ff';
+        this.overlayCtx.strokeStyle = '#ffffff';
         this.overlayCtx.lineWidth = 3;
         this.overlayCtx.stroke();
     }
@@ -211,7 +205,7 @@ class GestureRecognition {
         this.overlayCtx.beginPath();
         this.overlayCtx.moveTo(thumbTip.x * width, thumbTip.y * height);
         this.overlayCtx.lineTo(indexTip.x * width, indexTip.y * height);
-        this.overlayCtx.strokeStyle = '#00ff00';
+        this.overlayCtx.strokeStyle = '#ffffff';
         this.overlayCtx.lineWidth = 4;
         this.overlayCtx.stroke();
     }
@@ -226,7 +220,7 @@ class GestureRecognition {
         // Draw fist circle
         this.overlayCtx.beginPath();
         this.overlayCtx.arc(wrist.x * width, wrist.y * height, 30, 0, Math.PI * 2);
-        this.overlayCtx.strokeStyle = '#ff0000';
+        this.overlayCtx.strokeStyle = '#ffffff';
         this.overlayCtx.lineWidth = 4;
         this.overlayCtx.stroke();
     }
@@ -241,7 +235,7 @@ class GestureRecognition {
         // Draw open hand circle
         this.overlayCtx.beginPath();
         this.overlayCtx.arc(palmCenter.x * width, palmCenter.y * height, 40, 0, Math.PI * 2);
-        this.overlayCtx.strokeStyle = '#00ffff';
+        this.overlayCtx.strokeStyle = '#ffffff';
         this.overlayCtx.lineWidth = 3;
         this.overlayCtx.setLineDash([5, 5]);
         this.overlayCtx.stroke();

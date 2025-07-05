@@ -5,13 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestural Font Editor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <div class="container">
         <div class="header">
-            <h1>Gestural Font Editor ✨</h1>
+            <h1>Gestural Font Editor</h1>
             <div class="controls">
                 <select id="characterSelect">
                     <option value="A">A</option>
@@ -78,7 +81,7 @@
                     </div>
                     <div class="status-item">
                         <span class="status-label">Hand Detected:</span>
-                        <span id="handStatus">❌</span>
+                        <span id="handStatus">NO</span>
                     </div>
                     <div class="status-item">
                         <span class="status-label">Gesture:</span>
@@ -88,16 +91,7 @@
             </div>
         </div>
 
-        <div class="instructions">
-            <h3>Gesture Controls:</h3>
-            <ul>
-                <li><strong>Point (Index finger):</strong> Select and move control points</li>
-                <li><strong>Pinch (Thumb + Index):</strong> Scale character</li>
-                <li><strong>Two fingers:</strong> Rotate character</li>
-                <li><strong>Fist:</strong> Apply distortion</li>
-                <li><strong>Open hand:</strong> Reset to neutral</li>
-            </ul>
-        </div>
+
     </div>
 
     <!-- Scripts -->
